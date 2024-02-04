@@ -48,40 +48,37 @@ document.addEventListener('DOMContentLoaded', function() {
         isModalOpen = true;
         modal.style.display = "block";
         animatedMessage.innerHTML = ""; // Clear previous message
-        typeMessage("Every moment with you is a treasure. Will you be mine forever?", animatedMessage);
+        typeMessage("Thank you saying yes! I am so grateful for you and am so lucky to have you by my side! Happy early valentines day, I love you so so much ❤️🥰", animatedMessage);
         playNextRomanticTrack(); // Change and play a random romantic track
     });
+    const messages = [
+        "Oops! That must have been a mistake. Try again? 😄",
+        "Hmm, still not right. I'm sure you meant 'Yes'! 😁",
+        "Third time's the charm! 'Yes' is just a click away! 🥰",
+        "Do I smell or something?",
+        "All right now i'm upset",
+        "Ouch.",
+        "All jokes aside, I hope your day is as wonderful as you are! Click 'Yes' when you're ready. 😊" // This is the default message after cycling through all others
+    ];
 
     let noClickCount = 0;
 
     noButton.addEventListener('click', function() {
-        
         isModalOpen = true;
         romanticMusic.pause();
         romanticMusic.currentTime = 0;
-        currentRomanticTrackIndex = 0;
-        isModalOpen = true;
-        noClickCount++;
+        
         modal.style.display = "block";
         sadMusic.currentTime = 0; // Reset to start
         sadMusic.play(); // Play the sad music
 
-        switch (noClickCount) {
-            case 1:
-                typeMessage("Oops! That must have been a mistake. Try again? 😄", animatedMessage);
-                break;
-            case 2:
-                typeMessage("Hmm, still not right. I'm sure you meant 'Yes'! 😁", animatedMessage);
-                break;
-            case 3:
-                typeMessage("Third time's the charm! 'Yes' is just a click away! 🥰", animatedMessage);
-                break;
-            default:
-                typeMessage("All jokes aside, I hope your day is as wonderful as you are! Click 'Yes' when you're ready. 😊", animatedMessage);
-                break;
-        }
-    });
+        // Use modulo operator to loop through messages cyclically
+        const messageIndex = noClickCount % messages.length;
+        typeMessage(messages[messageIndex], animatedMessage);
 
+        noClickCount++; // Increment at every click
+    });
+    
     
 
     span.onclick = function() {
@@ -124,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         heart.style.left = `${x - 25}px`; // Offset to center the heart
         heart.style.top = `${y - 25}px`; // Offset to center the heart
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 2000); // Remove after 2 seconds
+        setTimeout(() => heart.remove(), 800); // Remove after 2 seconds
     }
 
     let typingTimer;
@@ -151,10 +148,5 @@ document.addEventListener('DOMContentLoaded', function() {
         typingTimer = setInterval(addWord, 100);
     }
  
-    document.getElementById('yes-button').addEventListener('click', function() {
-        const modal = document.getElementById('myModal');
-        const animatedMessage = document.getElementById('animatedMessage');
-        modal.style.display = "block";
-        typeMessage("Every moment with you is a treasure. Will you be mine forever?", animatedMessage);
-    });
+
 });
